@@ -12,7 +12,6 @@ export default function Register(props) {
           <label htmlFor='confirm-pass'>Confirm Password:</label>
           <input type='password' id='confirm-pass' />
           <button type='submit'>Create Account</button>
-          {/* <Link to='/register'>Create Account</Link> */}
         </div>
       </form>
     </>
