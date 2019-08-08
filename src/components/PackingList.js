@@ -35,6 +35,7 @@ export default class PackingList extends React.Component {
     })
     .then(item => {
       this.context.addPackingItem(item);
+      document.getElementById("packingForm").reset();
     })
     .catch(error => {
       console.error({error});
@@ -53,6 +54,7 @@ export default class PackingList extends React.Component {
         <h2>Packing List</h2>
         <nav className='nav-menu'>
           <Link to='/'>Logout</Link>
+          {' '}
           <Link to='/transportation'>Transportation</Link>
         </nav>
         <form action='/packing-list' onSubmit={this.handleSubmit} className='addItemForm' id='packingForm'>
@@ -61,6 +63,8 @@ export default class PackingList extends React.Component {
           <button type='submit'>Add Item</button>
         </form>
         <ul className='packingList'>
+          <input type='checkbox' id='show-all' />
+          <label htmlFor='show-all'>Show Completed</label>
           {listItems}
         </ul>
       </>

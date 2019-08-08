@@ -6,8 +6,20 @@ import TransportationItem from './TransportationItem';
 export default class TransportationList extends React.Component {
   static contextType = AppContext;
 
+  componentDidMount() {
+    fetch('http://localhost:8000/api/travel')
+    .then(res =>
+      (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
+    )
+      .then(this.context.setTransportList)
+      .catch(error => {
+        console.error({error});
+      })
+  }
+
   handleSubmit = event => {
     event.preventDefault();
+    console.log('editing=', this.context.editing)
     const item = {
       transport_date: event.target['date'].value,
       transport_time: event.target['time'].value,
@@ -29,6 +41,8 @@ export default class TransportationList extends React.Component {
     })
     .then(item => {
       this.context.addTransportItem(item);
+      // for future reference this is how I cleared the form fields
+      document.getElementById('travelForm').reset();
     })
     .catch(error => {
       console.error({error});
@@ -37,10 +51,9 @@ export default class TransportationList extends React.Component {
 
   render() {
     const { transportationList } = this.context;
-    console.log(this.context);
     const listItems = transportationList.map((item, index) => {
       console.log(item);
-      return (<TransportationItem key={index} id={item.id} transport_date={item.transport_date} transport_time={item.transport_time} transport_location={item.tranpsort_location} destination={item.destination} transport_type={item.transport_type} transport_number={item.transport_number} />);
+      return (<TransportationItem key={index} id={item.id} transport_date={item.transport_date} transport_time={item.transport_time} transport_location={item.transport_location} destination={item.destination} transport_type={item.transport_type} transport_number={item.transport_number} />);
     });
     return(
       <>
@@ -51,13 +64,11 @@ export default class TransportationList extends React.Component {
         <Link to='/packing-list'>Packing List</Link>
       </nav>
       <button>New Transportation</button>
-      <form action='/transportation' onSubmit={this.handleSubmit} className='addTravelForm'>
+      <form action='/transportation' onSubmit={this.handleSubmit} className='addTravelForm' id='travelForm'>
         <label htmlFor='date'>Date:</label>
-        <input type='text' id='date' placeholder='MM/DD/YYYY' />
-        {/* pattern='(?:(?:0[1-9]|1[0-2])[\/\\-. ]?(?:0[1-9]|[12][0-9])|(?:(?:0[13-9]|1[0-2])[\/\\-. ]?30)|(?:(?:0[13578]|1[02])[\/\\-. ]?31))[\/\\-. ]?(?:19|20)[0-9]{2}' */}
+        <input type='text' id='date' placeholder='MM/DD/YYYY' pattern='^\d{1,2}\/\d{1,2}\/\d{4}$' />
         <label htmlFor='time'>Time:</label>
-        <input type='text' id='time' placeholder='--:--AM/PM' />
-        {/* pattern='^(1[0-2]|0?[1-9]):([0-5]?[0-9])(●?[AP]M)?$' */}
+        <input type='text' id='time' placeholder='--:--AM/PM' pattern='^(1[0-2]|0?[1-9]):([0-5]?[0-9])(●?[AP]M)?$' />
         <label htmlFor='city-from'>From: </label>
         <input type='text' id='city-from' />
         <label htmlFor='city-to'>To: </label>
@@ -72,8 +83,8 @@ export default class TransportationList extends React.Component {
         </select>
         <label htmlFor='travel-number'>Transportation Number</label>
         <input type='text' id='travel-number' />
-        <button className='close-button'>Close</button>
         <button type='submit'>Add Transportation</button>
+        <button className='close-button'>Close</button>
       </form>
       <ul className='transportList'>
         {listItems}

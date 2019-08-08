@@ -1,6 +1,7 @@
 import React from 'react';
-import AuthApiService from '../auth_service';
-
+import AuthApiService from '../services/auth_service';
+import { Link } from 'react-router-dom';
+ 
 export default class Register extends React.Component {
   static defaultProps = {
     history: {
@@ -9,10 +10,9 @@ export default class Register extends React.Component {
   };
 
   handleRegistrationSuccess = user => {
+    // don't like how this works; want to have it either login user directly or have a message saying they made their account and a button to redirect back to the login page
     const { history } = this.props;
-    // this is the path to the login page
-    // also right now this pushes the users back to the login page, ideally I would want it to log them in after they have created an account, but minor last minute detail
-    history.push('/')
+    history.push('/');
   }
 
   handleSubmit = event => {
@@ -26,7 +26,7 @@ export default class Register extends React.Component {
     .then(user => {
       username.value = '';
       password.value = '';
-      this.props.onRegistrationSuccess()
+      this.handleRegistrationSuccess()
     })
     .catch(error => {
       console.error({error});
@@ -36,14 +36,17 @@ export default class Register extends React.Component {
   render() {
     return (
       <>
-        <form className='loginForm'>
+        <nav className='login-nav'>
+          <Link to='/'>Existing Users</Link>
+        </nav>
+        <form className='loginForm' onSubmit={this.handleSubmit}>
           <div className='username'>
             <label htmlFor='username'>Username:</label>
             <input type='text' id='username' />
             <label htmlFor='password'>Password:</label>
             <input type='password' id='password' />
-            <label htmlFor='confirm-pass'>Confirm Password:</label>
-            <input type='password' id='confirm-pass' />
+            {/* <label htmlFor='confirm-pass'>Confirm Password:</label> */}
+            {/* <input type='password' id='confirm-pass' /> */}
             <button type='submit'>Create Account</button>
           </div>
         </form>

@@ -5,8 +5,7 @@ export default class PackingItem extends React.Component {
   static contextType = AppContext;
 
   state = {
-    checked: false,
-    value: ''
+    checked: false
   };
 
   handleDelete = event => {
@@ -29,91 +28,32 @@ export default class PackingItem extends React.Component {
     })
   }
 
-  handleEdit = () => {
-    console.log(this.state.text);
-    this.context.isEditing();
+  handleEdit = id => {
+    this.context.isEditing(id);
   }
-
-
-  // var MyCom = React.createClass({
-  //   getInitialState: function() {
-  //     return {
-  //       editing: false,
-  //       // ** Initialize "text" property with empty string here
-  //       text: ''
-  //     }
-  //   },
-  //   edit: function() {
-  //     this.setState({
-  //       editing: true
-  //     })
-  //   },
-  //   save: function() {
-  //     var val = this.refs.newText.value;
-  //     alert(val)
-  //     this.setState({
-  //       // ** Update "text" property with new value (this fires render() again)
-  //       text: val,
-  //       editing: false
-  //     })
-  //   },
-  //   renderNormal: function() {
-  //     // ** Render "state.text" inside your <p> whether its empty or not...
-  //     return (
-  //       <div>
-  //         <p>{this.state.text}</p>
-  //         <button onClick={this.edit}>Edit</button>
-  //     </div>
-  //     )
-  //   },
-  //   renderForm: function() {
-  //     return (
-  //       <div>
-  //          <textarea ref="newText" defaultValue="Edit me"></textarea>
-  //         <button onClick={this.save}>Save</button>
-  //     </div>
-  //     )
-  //   },
-  //   render: function() {
-  //     if (this.state.editing) {
-  //       return this.renderForm()
-// } else {
-  // return this.renderNormal()
-// }
-// }
-// })
-
 
   handleSave = event => {
     event.preventDefault();
-    console.log('this works');
-    // const item = {
-    //   item: event.target['edit-item'].value
-    // };
-    // console.log(item);
+    const item = {
+      id: this.props.id,
+      item: event.target['edit-item'].value
+    };
 
-    // this.setState({
-    //   value: this.refs.newInput
-    // })
-    // this.context.isEditing();
-
-    // fetch('http://localhost:8000/api/list', {
-    //   method: 'PATCH',
-    //   headers: {'content-type': 'application/json'},
-    //   body: JSON.stringify(item)
-    // })
-    // .then(res => {
-    //   if(!res.ok) {
-    //     return Promise.reject();
-    //   }
-    //   return res.json();
-    // })
-    // .then(item => {
-    //   this.context.updateItem(item);
-    // })
-    // .catch(error => {
-    //   console.error({error});
-    // })
+    fetch(`http://localhost:8000/api/list/${this.props.id}`, {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(item)
+    })
+    .then(res => {
+      if(!res.ok) {
+        return Promise.reject();
+      }
+      this.context.updatePackingItem(item);
+      this.context.isEditing();
+    })
+    .catch(error => {
+      console.error({error});
+    })
   }
 
   handleChecked = event => {
@@ -135,7 +75,7 @@ export default class PackingItem extends React.Component {
       <>
         <input type="checkbox" checked={this.state.checked} onChange={this.handleChecked} />
         <p>{this.props.item}</p>
-        <button onClick={this.handleEdit}>Edit</button>
+        <button onClick={() => this.handleEdit(this.props.id)}>Edit</button>
         <button onClick={this.handleDelete}>Delete</button>
       </>
     )
@@ -146,7 +86,7 @@ export default class PackingItem extends React.Component {
       <AppContext.Consumer>
         {(context) => (
           <li className='item'>
-            {this.context.editing ? 
+            {this.context.editing === this.props.id ? 
               this.renderEditView() : 
               this.renderDefaultView() }
           </li>

@@ -66,10 +66,9 @@ export default class App extends React.Component {
     })
   }
 
-  handleIsEditing = () => {
-    console.log('made it');
+  handleIsEditing = id => {
     this.setState({
-      editing: !this.state.editing
+      editing: id
     })
   }
 
@@ -77,12 +76,11 @@ export default class App extends React.Component {
     this.setState({ packingList });
   }
 
-  setTranpsortList = transportationList => {
+  setTransportList = transportationList => {
     this.setState({ transportationList });
   }
 
   render() {
-    console.log('editing equals', this.state.editing)
     const contextValue = {
       packingList: this.state.packingList,
       transportationList: this.state.transportationList,
