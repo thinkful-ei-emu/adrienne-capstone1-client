@@ -8,7 +8,11 @@ const AppContext = React.createContext({
   deletePackingItem: () => {},
   deleteTransportItem: () => {},
   updatePackingItem: () => {},
-  updateTransportItem: () => {}
+  updateTransportItem: () => {},
+  setPackingList: () => {},
+  setTransportList: () => {},
+  isEditing: () => {},
+  editing: false
 });
 
 export default AppContext;
