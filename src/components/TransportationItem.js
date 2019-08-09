@@ -1,5 +1,7 @@
 import React from 'react';
 import AppContext from './AppContext';
+import config from '../config';
+import TokenService from '../services/token_service';
 
 export default class TransportationItem extends React.Component {
   static contextType = AppContext;
@@ -15,9 +17,12 @@ export default class TransportationItem extends React.Component {
       transport_type: this.props.type,
       transport_number: this.props.number
     };
-    fetch(`http://localhost:8000/api/travel/${item.id}`, {
+    fetch(`${config.API_ENDPOINT}/travel/${item.id}`, {
       method: 'DELETE',
-      headers: { 'content-type': 'application/json' }
+      headers: { 
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json' 
+      }
     })
     .then(res => {
       if (!res.ok) 
@@ -42,12 +47,15 @@ export default class TransportationItem extends React.Component {
       transport_location: event.target['edit-location'].value,
       destination: event.target['edit-destination'].value,
       transport_type: event.target['edit-type'].value,
-      transport_number: event.target['edit-number'].value
+      transport_number: event.target['edit-transport-number'].value
     };
 
-    fetch(`http://localhost:8000/api/travel/${this.props.id}`, {
+    fetch(`${config.API_ENDPOINT}/travel/${this.props.id}`, {
       method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
+      headers: { 
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json' 
+      },
       body: JSON.stringify(item)
     })
     .then(res => {
@@ -81,8 +89,8 @@ export default class TransportationItem extends React.Component {
             <option value='Car'>Car</option>
             <option value='Boat'>Boat</option>
           </select>
-        <label htmlFor='edit-number'>Number:</label>
-          <input type='text' defaultValue={this.props.transport_number} id='edit-number' />
+        <label htmlFor='edit-transport-number'>Number:</label>
+          <input type='text' defaultValue={this.props.transport_number} id='edit-transport-number' />
         <button onClick={this.handleEdit}>X</button>
         <button type='submit'>Save</button>
       </form>

@@ -1,11 +1,14 @@
 import React from 'react';
 import AppContext from './AppContext';
+import config from '../config';
+import TokenService from '../services/token_service';
 
 export default class PackingItem extends React.Component {
   static contextType = AppContext;
 
   state = {
-    checked: false
+    checked: false,
+    isHidden: false
   };
 
   handleDelete = event => {
@@ -14,9 +17,12 @@ export default class PackingItem extends React.Component {
       id: this.props.id,
       item: this.props.name
     };
-    fetch(`http://localhost:8000/api/list/${item.id}`, {
+    fetch(`${config.API_ENDPOINT}/list/${item.id}`, {
       method: 'DELETE',
-      headers: { 'content-type': 'application/json' }
+      headers: { 
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json' 
+      }
     })
     .then(res => {
       if (!res.ok) 
@@ -39,9 +45,12 @@ export default class PackingItem extends React.Component {
       item: event.target['edit-item'].value
     };
 
-    fetch(`http://localhost:8000/api/list/${this.props.id}`, {
+    fetch(`${config.API_ENDPOINT}/list/${this.props.id}`, {
       method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
+      headers: { 
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json' 
+      },
       body: JSON.stringify(item)
     })
     .then(res => {
@@ -60,12 +69,21 @@ export default class PackingItem extends React.Component {
     this.setState({ checked: event.target.checked })
   }
 
+  handleChange() {
+    this.setState({ checked: !this.state.checked });
+  }
+
+
+  handleItemVisibility = id => {
+    this.setState({ isHidden: !this.state.isHidden })
+  }
+
   renderEditView = () => {
     return (
       <form action='/packing-list' onSubmit={this.handleSave}>
         <input type='text' defaultValue={this.props.item} id='edit-item'  />
-        <button onClick={this.handleEdit}>X</button>
         <button type='submit'>Save</button>
+        <button onClick={this.handleEdit}>X</button>
       </form>
     )
   }
@@ -73,7 +91,7 @@ export default class PackingItem extends React.Component {
   renderDefaultView = () => {
     return (
       <>
-        <input type="checkbox" checked={this.state.checked} onChange={this.handleChecked} />
+        <input type="checkbox" onChange={() => this.handleItemVisibility()} />
         <p>{this.props.item}</p>
         <button onClick={() => this.handleEdit(this.props.id)}>Edit</button>
         <button onClick={this.handleDelete}>Delete</button>

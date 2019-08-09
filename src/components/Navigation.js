@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-// ----- Components
 import TokenService from '../services/token_service';
 
 export default class Navigation extends React.Component {
@@ -22,7 +21,9 @@ export default class Navigation extends React.Component {
       <div className='logged-in'>
         <Link to='/packing-list'>Packing List</Link>
         {' '}
-        <Link onclick={this.handleLogoutClick} to ='/'>Logout</Link>
+        <Link to='/transportation'>Transportation</Link>
+        {' '}
+        <Link onClick={this.handleLogoutClick} to ='/'>Logout</Link>
       </div>
     )
   }
@@ -30,18 +31,8 @@ export default class Navigation extends React.Component {
   render() {
     return (
       <nav className='nav-bar'>
-        <h1>
-          <Link to='/'>
-            <h1>Travel Companion</h1>
-          </Link>
-        </h1>
-        {/* 
-            On registration page only want title of app as link and registration create account button to work
-            Want to get rid of create account nav link that is there right now
-         */}
-         {/* might bring next line back */}
-        {/* {TokenService.hasAuthToken() ? this.renderNavLinks() : this.renderRegisterLink()} */}
-        {/* {this.renderNavLinks()} */}
+        <h1>Travel Companion</h1>
+        {TokenService.hasAuthToken() ? this.renderNavLinks() : this.renderRegisterLink()}
       </nav>
     )
   }

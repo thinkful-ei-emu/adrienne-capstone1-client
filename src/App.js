@@ -7,6 +7,8 @@ import Login from './components/Login';
 import Register from './components/Register';
 import AppContext from './components/AppContext';
 import TransportationList from './components/TransportationList';
+import PrivateOnlyRoute from './components/Utils/PrivateOnlyRoute';
+import PublicOnlyRoute from './components/Utils/PublicOnlyRoute';
 // ------ CSS
 import './App.css';
 
@@ -97,15 +99,17 @@ export default class App extends React.Component {
     }
     return (
       <div className="App">
-        <header className="App-header">
           <AppContext.Provider value={contextValue}>
-            <Route path='/' component={Navigation} {...this.props} />
-            <Route exact path='/' component={Login} />
-            <Route path='/register' component={Register} />
-            <Route path='/packing-list' component={PackingList} {...this.props} />
-            <Route path='/transportation' component={TransportationList} />
+            <header className="App-header">
+              <Route path='/' component={Navigation} />
+            </header>
+            <main className='App_main'>
+              <PublicOnlyRoute exact path={'/'} component={Login}/>
+              <PublicOnlyRoute path={'/register'} component={Register} />
+              <PrivateOnlyRoute path={'/packing-list'} component={PackingList} />
+              <PrivateOnlyRoute path={'/transportation'} component={TransportationList} />
+            </main>
           </AppContext.Provider>
-        </header>
       </div>
     );
   }

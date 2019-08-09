@@ -1,13 +1,22 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import AppContext from './AppContext';
 import PackingItem from './PackingItem';
+import config from '../config';
+import TokenService from '../services/token_service';
 
 export default class PackingList extends React.Component {
   static contextType = AppContext;
 
+  state = {
+    isHidden: false
+  }
+
   componentDidMount() {
-    fetch('http://localhost:8000/api/list')
+    fetch(`${config.API_ENDPOINT}/list`, {
+      headers: {
+        'Authorization': `bearer ${TokenService.getAuthToken()}`
+      }
+    })
     .then(res =>
       (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
     )
@@ -22,9 +31,12 @@ export default class PackingList extends React.Component {
     const item = {
       item: event.target['add-item'].value
     };
-    fetch('http://localhost:8000/api/list', {
+    fetch(`${config.API_ENDPOINT}/list`, {
       method: 'POST',
-      headers: {'content-type': 'application/json'},
+      headers: {
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json'
+      },
       body: JSON.stringify(item)
     })
     .then(res => {
@@ -42,6 +54,14 @@ export default class PackingList extends React.Component {
     })
   }
 
+  handleMakeAllVisible = () => {
+    // don't want to toggle, just want to remove hidden property from all items that are currently hidden
+    // if toggle, will hide the visible ones instead of keeping them visible
+    if(this.state.isHidden === true) {
+      this.setState({ isHidden: false });
+    }
+  }
+
   render() {
     const { packingList } = this.context;
     const listItems = packingList.map((item, index) => {
@@ -52,11 +72,6 @@ export default class PackingList extends React.Component {
     return (
       <>
         <h2>Packing List</h2>
-        <nav className='nav-menu'>
-          <Link to='/'>Logout</Link>
-          {' '}
-          <Link to='/transportation'>Transportation</Link>
-        </nav>
         <form action='/packing-list' onSubmit={this.handleSubmit} className='addItemForm' id='packingForm'>
           <label htmlFor='add-item' />
           <input type='text' id='add-item' placeholder='e.g. Phone Charger' />

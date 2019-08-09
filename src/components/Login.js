@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import AuthApiService from '../services/auth_service';
 import TokenService from '../services/token_service';
 
@@ -8,7 +7,7 @@ export default class Login extends React.Component {
     location: {},
     history: {
       push: () => {}
-    }
+    },
   }
 
   handleLoginSuccess = () => {
@@ -37,15 +36,13 @@ export default class Login extends React.Component {
   render() {
     return (
       <>
-        <nav className='login-nav'>
-          <Link to='/register'>Create Account</Link>
-        </nav>
-        <form className='loginForm' onSumbit={this.handleSubmitJwtAuth}>
+        <h2>Welcome Traveler!</h2>
+        <form className='loginForm' onSubmit={this.handleSubmitJwtAuth}>
           <div className='username'>
             <label htmlFor='username'>Username:</label>
-            <input type='text' id='username' />
+            <input type='text' id='username' required />
             <label htmlFor='password'>Password:</label>
-            <input type='password' />
+            <input type='password' id='password' required />
             <button type='submit'>Login</button>
           </div>
         </form>
