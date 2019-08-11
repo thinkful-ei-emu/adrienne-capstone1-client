@@ -5,6 +5,7 @@ import PackingList from './components/PackingList';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
 import Register from './components/Register';
+import AccommodationList from './components/AccommodationsList';
 import AppContext from './components/AppContext';
 import TransportationList from './components/TransportationList';
 import PrivateOnlyRoute from './components/Utils/PrivateOnlyRoute';
@@ -17,6 +18,7 @@ export default class App extends React.Component {
   state = {
     packingList: [],
     transportationList: [],
+    accommodationList: [],
     editing: false
     };
 
@@ -38,6 +40,15 @@ export default class App extends React.Component {
     })
   }
 
+  handleAddAccommodationItem = item => {
+    this.setState({
+      accommodationList: [
+        ...this.state.accommodationList,
+        item
+      ]
+    })
+  }
+
   handleDeletePackingItem = item => {
     const newList = this.state.packingList.filter(i => i.id !== item.id);
     this.setState({
@@ -49,6 +60,13 @@ export default class App extends React.Component {
     const newList = this.state.transportationList.filter(i => i.id !== item.id);
     this.setState({
       transportationList: newList
+    })
+  }
+
+  handleDeleteAccommodationItem = item => {
+    const newList = this.state.accommodationList.filter(i => i.id !== item.id);
+    this.setState({
+      accommodationList: newList
     })
   }
 
@@ -68,6 +86,14 @@ export default class App extends React.Component {
     })
   }
 
+  handleUpdateAccommodationItem = item => {
+    this.setState({
+      accommodationList: this.state.accommodationList.map(i => 
+        (i.i !== item.id) ? i: item
+      )
+    })
+  }
+
   handleIsEditing = id => {
     this.setState({
       editing: id
@@ -82,18 +108,27 @@ export default class App extends React.Component {
     this.setState({ transportationList });
   }
 
+  setAccommodationList = accommodationList => {
+    this.setState({ accommodationList });
+  }
+
   render() {
     const contextValue = {
       packingList: this.state.packingList,
       transportationList: this.state.transportationList,
+      accommodationList: this.state.accommodationList,
       addPackingItem: this.handleAddPackingItem,
       addTransportItem: this.handleAddTransportItem,
+      addAccommodationItem: this.handleAddAccommodationItem,
       deletePackingItem: this.handleDeletePackingItem,
       deleteTransportItem: this.handleDeleteTransportItem,
+      deleteAccommodationItem: this.handleDeleteAccommodationItem,
       updatePackingItem: this.handleUpdatePackingItem,
       updateTransportItem: this.handleUpdateTransportItem,
+      updateAccommodationItem: this.handleUpdateAccommodationItem,
       setPackingList: this.setPackingList,
       setTransportList: this.setTransportList,
+      setAccommodationList: this.setAccommodationList,
       isEditing: this.handleIsEditing,
       editing: this.state.editing
     }
@@ -108,6 +143,7 @@ export default class App extends React.Component {
               <PublicOnlyRoute path={'/register'} component={Register} />
               <PrivateOnlyRoute path={'/packing-list'} component={PackingList} />
               <PrivateOnlyRoute path={'/transportation'} component={TransportationList} />
+              <PrivateOnlyRoute path={'/accommodations'} component={AccommodationList} />
             </main>
           </AppContext.Provider>
       </div>

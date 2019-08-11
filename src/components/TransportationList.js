@@ -101,17 +101,16 @@ export default class TransportationList extends React.Component {
   render() {
     const { transportationList } = this.context;
     const listItems = transportationList.map((item, index) => {
-      console.log(item);
       return (<TransportationItem key={index} id={item.id} transport_date={item.transport_date} transport_time={item.transport_time} transport_location={item.transport_location} destination={item.destination} transport_type={item.transport_type} transport_number={item.transport_number} />);
     });
     return(
       <>
-      <h2>Transportation</h2>
-      <>{this.state.isHidden ? this.renderButton() : this.renderForm()}</>
-      <ul className='transportList'>
-        {listItems}
-      </ul>
-    </>
+        <h2>Transportation</h2>
+        {this.state.isHidden ? this.renderButton() : this.renderForm()}
+        <ul className='transportList'>
+          {listItems}
+        </ul>
+      </>
     )
   }
 }

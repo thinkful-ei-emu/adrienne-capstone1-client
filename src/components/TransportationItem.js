@@ -72,7 +72,7 @@ export default class TransportationItem extends React.Component {
 
   renderEditView = () => {
     return (
-      <form action='/transportation' onSubmit={this.handleSave}>
+      <form action='/transportation' onSubmit={this.handleSave} className='editTransportForm'>
         <label htmlFor='edit-date'>Date:</label>
           <input type='text' defaultValue={this.props.transport_date} id='edit-date' />
         <label htmlFor='edit-time'>Time:</label>
@@ -91,8 +91,8 @@ export default class TransportationItem extends React.Component {
           </select>
         <label htmlFor='edit-transport-number'>Number:</label>
           <input type='text' defaultValue={this.props.transport_number} id='edit-transport-number' />
-        <button onClick={this.handleEdit}>X</button>
         <button type='submit'>Save</button>
+        <button onClick={this.handleEdit}>X</button>
       </form>
     )
   }

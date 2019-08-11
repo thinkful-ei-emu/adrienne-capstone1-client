@@ -23,6 +23,8 @@ export default class Navigation extends React.Component {
         {' '}
         <Link to='/transportation'>Transportation</Link>
         {' '}
+        <Link to='/accommodations'>Accommodations</Link>
+        {' '}
         <Link onClick={this.handleLogoutClick} to ='/'>Logout</Link>
       </div>
     )
