@@ -6,6 +6,7 @@ import Navigation from './components/Navigation';
 import Login from './components/Login';
 import Register from './components/Register';
 import AccommodationList from './components/AccommodationsList';
+// import Money from './components/Money';
 import AppContext from './components/AppContext';
 import TransportationList from './components/TransportationList';
 import PrivateOnlyRoute from './components/Utils/PrivateOnlyRoute';
@@ -144,6 +145,7 @@ export default class App extends React.Component {
               <PrivateOnlyRoute path={'/packing-list'} component={PackingList} />
               <PrivateOnlyRoute path={'/transportation'} component={TransportationList} />
               <PrivateOnlyRoute path={'/accommodations'} component={AccommodationList} />
+              {/* <Route path='money' component={Money}/> */}
             </main>
           </AppContext.Provider>
       </div>
