@@ -17,7 +17,8 @@ export default class App extends React.Component {
   state = {
     packingList: [],
     transportationList: [],
-    editing: false
+    editing: false,
+    error: null
     };
 
   handleAddPackingItem = item => {
@@ -75,11 +76,23 @@ export default class App extends React.Component {
   }
 
   setPackingList = packingList => {
-    this.setState({ packingList });
+    const packingListWithHidden =  packingList.map(item => ({...item, hidden: false}));
+    this.setState({ packingList: packingListWithHidden });
   }
 
   setTransportList = transportationList => {
     this.setState({ transportationList });
+  }
+
+  toggleHiddenProperty = id => {
+    const newList = [];
+    this.state.packingList.forEach((item) => {
+      if(item.id === id) {
+        item.hidden = !item.hidden;
+      }
+      return newList.push(item)
+    })
+    this.setState({packingList: newList})
   }
 
   render() {
@@ -95,7 +108,8 @@ export default class App extends React.Component {
       setPackingList: this.setPackingList,
       setTransportList: this.setTransportList,
       isEditing: this.handleIsEditing,
-      editing: this.state.editing
+      editing: this.state.editing,
+      toggleHiddenProperty: this.toggleHiddenProperty,
     }
     return (
       <div className="App">
@@ -104,10 +118,10 @@ export default class App extends React.Component {
               <Route path='/' component={Navigation} />
             </header>
             <main className='App_main'>
-              <PublicOnlyRoute exact path={'/'} component={Login}/>
-              <PublicOnlyRoute path={'/register'} component={Register} />
-              <PrivateOnlyRoute path={'/packing-list'} component={PackingList} />
-              <PrivateOnlyRoute path={'/transportation'} component={TransportationList} />
+                <PublicOnlyRoute exact path={'/'} component={Login}/>
+                <PublicOnlyRoute path={'/register'} component={Register} />
+                <PrivateOnlyRoute path={'/packing-list'} component={PackingList} />
+                <PrivateOnlyRoute path={'/transportation'} component={TransportationList} />
             </main>
           </AppContext.Provider>
       </div>

@@ -1,29 +1,22 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import TokenService from '../services/token_service';
+import '../css/navigation.css';
 
 export default class Navigation extends React.Component {
   handleLogoutClick = () => {
     TokenService.clearAuthToken();
   }
 
-  renderRegisterLink() {
-    return (
-      <div className='logged-out'>
-        <Link to='/register'>Create Account</Link>
-      </div>
-    )
-  }
-
   // navigation menu renders if user is logged in
   renderNavLinks() {
     return (
       <div className='logged-in'>
-        <Link to='/packing-list'>Packing List</Link>
+        <NavLink to='/packing-list' className='navLink' activeClassName='active'>Packing List</NavLink>
         {' '}
-        <Link to='/transportation'>Transportation</Link>
+        <NavLink to='/transportation' className='navLink' activeClassName='active'>Transportation</NavLink>
         {' '}
-        <Link onClick={this.handleLogoutClick} to ='/'>Logout</Link>
+        <NavLink onClick={this.handleLogoutClick} to ='/' className='logoutLink'>Logout</NavLink>
       </div>
     )
   }
@@ -32,7 +25,7 @@ export default class Navigation extends React.Component {
     return (
       <nav className='nav-bar'>
         <h1>Travel Companion</h1>
-        {TokenService.hasAuthToken() ? this.renderNavLinks() : this.renderRegisterLink()}
+        {TokenService.hasAuthToken() ? this.renderNavLinks() : null}
       </nav>
     )
   }

@@ -12,7 +12,8 @@ const AppContext = React.createContext({
   setPackingList: () => {},
   setTransportList: () => {},
   isEditing: () => {},
-  editing: false
+  editing: false,
+  toggleHiddenProperty: () => {}
 });
 
 export default AppContext;

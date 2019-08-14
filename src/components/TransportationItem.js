@@ -2,6 +2,9 @@ import React from 'react';
 import AppContext from './AppContext';
 import config from '../config';
 import TokenService from '../services/token_service';
+import '../css/transportation.css';
+import moment from 'moment';
+
 
 export default class TransportationItem extends React.Component {
   static contextType = AppContext;
@@ -72,16 +75,25 @@ export default class TransportationItem extends React.Component {
 
   renderEditView = () => {
     return (
-      <form action='/transportation' onSubmit={this.handleSave}>
-        <label htmlFor='edit-date'>Date:</label>
-          <input type='text' defaultValue={this.props.transport_date} id='edit-date' />
-        <label htmlFor='edit-time'>Time:</label>
-          <input type='text' defaultValue={this.props.transport_time} id='edit-time' />
-        <label htmlFor='edit-location'>Location:</label>
+      <form action='/transportation' className='edit-form' onSubmit={this.handleSave}>
+        <div>
+          <label htmlFor='edit-date' />
+          <input type='date' defaultValue={this.props.transport_date} id='edit-date' />
+        </div>
+        <div>
+          <label htmlFor='edit-time' />
+          <input type='time' defaultValue={this.props.transport_time} id='edit-time' />
+        </div>
+        <div>
+          <label htmlFor='edit-location' />
           <input type='text' defaultValue={this.props.transport_location} id='edit-location' />
-        <label htmlFor='edit-destination'>Destination:</label>
+        </div>
+        <div>
+          <label htmlFor='edit-destination' />
           <input type='text' defaultValue={this.props.destination} id='edit-destination' />
-        <label htmlFor='edit-type'>Type:</label>
+        </div>
+        <div>
+          <label htmlFor='edit-type' />
           <select id='edit-type' name='select'>
             <option value='Plane'>Plane</option>
             <option value='Train'>Train</option>
@@ -89,10 +101,13 @@ export default class TransportationItem extends React.Component {
             <option value='Car'>Car</option>
             <option value='Boat'>Boat</option>
           </select>
-        <label htmlFor='edit-transport-number'>Number:</label>
+        </div>
+        <div>
+          <label htmlFor='edit-transport-number' />
           <input type='text' defaultValue={this.props.transport_number} id='edit-transport-number' />
-        <button onClick={this.handleEdit}>X</button>
+        </div>
         <button type='submit'>Save</button>
+        <button onClick={this.handleEdit}>X</button>
       </form>
     )
   }
@@ -100,8 +115,8 @@ export default class TransportationItem extends React.Component {
   renderDefaultView = () => {
     return (
       <>
-        <p>Date: {this.props.transport_date}</p>
-        <p>Time: {this.props.transport_time}</p>
+        <p>Date: {moment(this.props.transport_date).format('MM/DD/YYYY')}</p>
+        <p>Time: {moment(this.props.transport_time, 'HH:mm').format('h:mA')}</p>
         <p>Location: {this.props.transport_location}</p>
         <p>Destination: {this.props.destination}</p>
         <p>Type: {this.props.transport_type}</p>

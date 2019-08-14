@@ -2,14 +2,10 @@ import React from 'react';
 import AppContext from './AppContext';
 import config from '../config';
 import TokenService from '../services/token_service';
+import '../css/packing.css';
 
 export default class PackingItem extends React.Component {
   static contextType = AppContext;
-
-  state = {
-    checked: false,
-    isHidden: false
-  };
 
   handleDelete = event => {
     event.preventDefault();
@@ -38,6 +34,10 @@ export default class PackingItem extends React.Component {
     this.context.isEditing(id);
   }
 
+  handleToggle = id => {
+    this.context.toggleHiddenProperty(id);
+  }
+
   handleSave = event => {
     event.preventDefault();
     const item = {
@@ -64,20 +64,7 @@ export default class PackingItem extends React.Component {
       console.error({error});
     })
   }
-
-  handleChecked = event => {
-    this.setState({ checked: event.target.checked })
-  }
-
-  handleChange() {
-    this.setState({ checked: !this.state.checked });
-  }
-
-
-  handleItemVisibility = id => {
-    this.setState({ isHidden: !this.state.isHidden })
-  }
-
+  
   renderEditView = () => {
     return (
       <form action='/packing-list' onSubmit={this.handleSave}>
@@ -88,26 +75,36 @@ export default class PackingItem extends React.Component {
     )
   }
 
+  handleCheckboxAccessibility = e => {
+    if(e.keyCode === 13) {
+      this.handleToggle(this.props.id);
+    }
+  }
+  
   renderDefaultView = () => {
-    return (
-      <>
-        <input type="checkbox" onChange={() => this.handleItemVisibility()} />
-        <p>{this.props.item}</p>
-        <button onClick={() => this.handleEdit(this.props.id)}>Edit</button>
-        <button onClick={this.handleDelete}>Delete</button>
-      </>
-    )
+    if(this.props.hidden === true) {
+      return null
+    } else {
+      return (
+        <li className='item'>
+          <input type="checkbox" onKeyDown={(e) => this.handleCheckboxAccessibility(e)} onChange={() => this.handleToggle(this.props.id)} />
+          <span>{this.props.item}</span>
+          <button onClick={() => this.handleEdit(this.props.id)}>Edit</button>
+          <button onClick={this.handleDelete}>Delete</button>
+        </li>
+      )
+   }
   }
 
   render() {
     return(
       <AppContext.Consumer>
         {(context) => (
-          <li className='item'>
+          <>
             {this.context.editing === this.props.id ? 
               this.renderEditView() : 
               this.renderDefaultView() }
-          </li>
+          </>
         )}
       </AppContext.Consumer>
     )

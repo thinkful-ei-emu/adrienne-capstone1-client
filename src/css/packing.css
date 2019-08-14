@@ -1,0 +1,53 @@
+li {
+  list-style: none;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+span {
+  display: inline-block;
+  margin-left: 15px;
+  margin-right: 10px;
+}
+
+ul {
+  width: 90%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+button {
+  background-color: white;
+}
+
+input[type='checkbox'] {
+  width: 14px;
+}
+
+.error {
+  border: 1px solid red;
+  width: 90%;
+  margin: 0 auto;
+  color: red;
+  font-weight: 600;
+  padding: 5px 0;
+  margin-bottom: 10px;
+}
+
+.errorButton {
+  border: 1px solid red;
+  color: red;
+  font-weight: 600;
+  float: right;
+}
+
+@media only screen and (min-width: 700px) {
+  ul {
+    max-width: 550px;
+  }
+
+  .error {
+    max-width: 500px;
+  }
+}

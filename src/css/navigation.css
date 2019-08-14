@@ -1,0 +1,10 @@
+div {
+  text-align: center;
+}
+
+.logoutLink, .navLink {
+  color: rgb(78, 76, 76);
+  text-decoration: none;
+  font-size: 17px;
+  margin-right: 10px;
+}

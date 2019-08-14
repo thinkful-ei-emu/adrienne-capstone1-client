@@ -3,13 +3,14 @@ import AppContext from './AppContext';
 import TransportationItem from './TransportationItem';
 import config from '../config';
 import TokenService from '../services/token_service';
+import '../css/transportation.css';
 
 export default class TransportationList extends React.Component {
   static contextType = AppContext;
 
   state = {
     isHidden: true,
-    error: null
+    // error: null
   }
 
   componentDidMount() {
@@ -27,6 +28,7 @@ export default class TransportationList extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    this.setState({ error: null });
     const item = {
       transport_date: event.target['date'].value,
       transport_time: event.target['time'].value,
@@ -53,12 +55,12 @@ export default class TransportationList extends React.Component {
       this.context.addTransportItem(item);
       document.getElementById('travelForm').reset();
     })
-    .catch(error => {
-      console.error({error});
-    })
     // .catch(res => {
     //   this.setState({ error: res.error });
     // })
+    .catch(error => {
+      console.error({error})
+    })
   }
 
   handleFormVisibility = () => {
@@ -68,24 +70,36 @@ export default class TransportationList extends React.Component {
   renderForm = () => {
     return(
       <form action='/transportation' onSubmit={this.handleSubmit} className='addTravelForm' id='travelForm'>
-        <label htmlFor='date'>Date:</label>
-        <input type='date' id='date' placeholder='MM/DD/YYYY' pattern='^\d{1,2}\/\d{1,2}\/\d{4}$' />
-        <label htmlFor='time'>Time:</label>
-        <input type='text' id='time' placeholder='--:--AM/PM' pattern='^(1[0-2]|0?[1-9]):([0-5]?[0-9])(●?[AP]M)?$' />
-        <label htmlFor='city-from'>From: </label>
-        <input type='text' id='city-from' />
-        <label htmlFor='city-to'>To: </label>
-        <input type='text' id='city-to' />
-        <label htmlFor='transport-type'>Type of Transportation:</label>
-        <select id='transport-type' name='select'>
-          <option value='Plane'>Plane</option>
-          <option value='Train'>Train</option>
-          <option value='Bus'>Bus</option>
-          <option value='Car'>Car</option>
-          <option value='Boat'>Boat</option>
-        </select>
-        <label htmlFor='travel-number'>Transportation Number:</label>
+        <div>
+          <label htmlFor='date'>Date: </label>
+          <input type='date' id='date' />
+        </div>
+        <div>
+          <label htmlFor='time'>Time: </label>
+          <input type='time' id='time' />
+        </div>
+        <div>
+          <label htmlFor='city-from'>From: </label>
+          <input type='text' id='city-from' />
+        </div>
+        <div>
+          <label htmlFor='city-to'>To: </label>
+          <input type='text' id='city-to' />
+        </div>
+        <div>
+          <label htmlFor='transport-type'>Type of Transportation: </label>
+          <select id='transport-type' name='select'>
+            <option value='Plane'>Plane</option>
+            <option value='Train'>Train</option>
+            <option value='Bus'>Bus</option>
+            <option value='Car'>Car</option>
+            <option value='Boat'>Boat</option>
+          </select>
+        </div>
+        <div>
+        <label htmlFor='travel-number'>Transportation Number: </label>
         <input type='text' id='travel-number' />
+        </div>
         <button type='submit'>Add Transportation</button>
         <button className='close-button' onClick={() => this.handleFormVisibility()}>Close</button>
       </form>
@@ -99,14 +113,17 @@ export default class TransportationList extends React.Component {
   }
 
   render() {
+    // const { error } = this.state;
     const { transportationList } = this.context;
     const listItems = transportationList.map((item, index) => {
-      console.log(item);
       return (<TransportationItem key={index} id={item.id} transport_date={item.transport_date} transport_time={item.transport_time} transport_location={item.transport_location} destination={item.destination} transport_type={item.transport_type} transport_number={item.transport_number} />);
     });
     return(
       <>
       <h2>Transportation</h2>
+      {/* <div>
+      {error && <p className='error'>{error}</p>}
+      </div> */}
       <>{this.state.isHidden ? this.renderButton() : this.renderForm()}</>
       <ul className='transportList'>
         {listItems}

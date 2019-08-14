@@ -3,11 +3,13 @@ import AppContext from './AppContext';
 import PackingItem from './PackingItem';
 import config from '../config';
 import TokenService from '../services/token_service';
+import '../css/packing.css';
 
 export default class PackingList extends React.Component {
   static contextType = AppContext;
 
   state = {
+    error: null,
     isHidden: false
   }
 
@@ -49,37 +51,42 @@ export default class PackingList extends React.Component {
       this.context.addPackingItem(item);
       document.getElementById("packingForm").reset();
     })
-    .catch(error => {
-      console.error({error});
+    .catch(res => {
+      this.setState({error: res.error});
     })
   }
 
-  handleMakeAllVisible = () => {
-    // don't want to toggle, just want to remove hidden property from all items that are currently hidden
-    // if toggle, will hide the visible ones instead of keeping them visible
-    if(this.state.isHidden === true) {
-      this.setState({ isHidden: false });
-    }
+  // handleMakeAllVisible = () => {
+  //   // console.log('this works');
+  //   // console.log(item.hidden);
+  // }
+
+  handleErrorVisibility = () => {
+    this.setState({ isHidden: true });
   }
 
   render() {
+    const { error } = this.state;
     const { packingList } = this.context;
     const listItems = packingList.map((item, index) => {
       return (
-        <PackingItem key={index} item={item.item} id={item.id} />
+        <PackingItem key={index} item={item.item} id={item.id} hidden={item.hidden} />
       );
     });
     return (
       <>
         <h2>Packing List</h2>
+        <div>
+          {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorVisibility()}>X</button></span>}
+        </div>
         <form action='/packing-list' onSubmit={this.handleSubmit} className='addItemForm' id='packingForm'>
           <label htmlFor='add-item' />
-          <input type='text' id='add-item' placeholder='e.g. Phone Charger' />
+          <input type='text' id='add-item' placeholder='e.g. Phone Charger' aria-label='Packing List Item' aria-required='true' required />
           <button type='submit'>Add Item</button>
         </form>
         <ul className='packingList'>
-          <input type='checkbox' id='show-all' />
-          <label htmlFor='show-all'>Show Completed</label>
+          {/* <input type='checkbox' id='show-all' onClick={this.handleMakeAllVisible()} />
+          <label htmlFor='show-all'>Show Completed</label> */}
           {listItems}
         </ul>
       </>
