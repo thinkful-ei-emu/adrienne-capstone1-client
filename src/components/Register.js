@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthApiService from '../services/auth_service';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import '../css/register.css';
  
 export default class Register extends React.Component {
@@ -41,7 +41,7 @@ export default class Register extends React.Component {
     return (
       <>
         <nav className='register-nav'>
-          <Link to='/' className='navLink'>Existing Users</Link>
+          <NavLink to='/' className='navLink'>Existing Users</NavLink>
         </nav>
         <div>
           {error && <p className='error'>{error}</p>}

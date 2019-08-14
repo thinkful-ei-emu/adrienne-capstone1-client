@@ -10,7 +10,7 @@ export default class TransportationList extends React.Component {
 
   state = {
     isHidden: true,
-    // error: null
+    error: null
   }
 
   componentDidMount() {
@@ -47,7 +47,7 @@ export default class TransportationList extends React.Component {
     })
     .then(res => {
       if(!res.ok) {
-        return Promise.reject();
+        return res.json().then((e) => Promise.reject(e));
       }
       return res.json();
     })
@@ -55,11 +55,9 @@ export default class TransportationList extends React.Component {
       this.context.addTransportItem(item);
       document.getElementById('travelForm').reset();
     })
-    // .catch(res => {
-    //   this.setState({ error: res.error });
-    // })
-    .catch(error => {
-      console.error({error})
+    .catch(res => {
+      console.log(res);
+      this.setState({ error: res.error });
     })
   }
 
@@ -113,7 +111,7 @@ export default class TransportationList extends React.Component {
   }
 
   render() {
-    // const { error } = this.state;
+    const { error } = this.state;
     const { transportationList } = this.context;
     const listItems = transportationList.map((item, index) => {
       return (<TransportationItem key={index} id={item.id} transport_date={item.transport_date} transport_time={item.transport_time} transport_location={item.transport_location} destination={item.destination} transport_type={item.transport_type} transport_number={item.transport_number} />);
@@ -121,9 +119,9 @@ export default class TransportationList extends React.Component {
     return(
       <>
       <h2>Transportation</h2>
-      {/* <div>
+      <div>
       {error && <p className='error'>{error}</p>}
-      </div> */}
+      </div>
       <>{this.state.isHidden ? this.renderButton() : this.renderForm()}</>
       <ul className='transportList'>
         {listItems}

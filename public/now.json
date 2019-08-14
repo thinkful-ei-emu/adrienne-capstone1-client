@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "alias": "travel-companion",
   "name": "travel-companion",
   "routes": [
       {

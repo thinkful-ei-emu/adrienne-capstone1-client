@@ -30,6 +30,7 @@ export default class PackingList extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    this.setState({ error: null });
     const item = {
       item: event.target['add-item'].value
     };
