@@ -153,7 +153,7 @@ export default class TransportationItem extends React.Component {
       <AppContext.Consumer>
         {(context) => (
           <>
-          {error && <span role='alertdialog' className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
+          {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
           <li className='transportation-item'>
             {this.context.editing === this.props.id ? 
               this.renderEditView() : 

@@ -37,6 +37,10 @@ export default class Register extends React.Component {
     })
   }
 
+  handleErrorClose = () => {
+    this.setState({ error: null });
+  }
+
   render() {
     const { error } = this.state;
     return (
@@ -45,7 +49,7 @@ export default class Register extends React.Component {
           <NavLink to='/' className='navLink'>Existing Users</NavLink>
         </nav>
         <div>
-          {error && <p className='error'>{error}</p>}
+        {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
         </div>
         <form className='registerForm' onSubmit={this.handleSubmit}>
           <div className='username'>

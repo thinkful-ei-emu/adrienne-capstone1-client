@@ -79,7 +79,7 @@ export default class PackingList extends React.Component {
       <>
         <h2>Packing List</h2>
         <div>
-          {error && <span role='alertdialog' className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
+          {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
         </div>
         <form action='/packing-list' onSubmit={this.handleSubmit} className='addItemForm' id='packingForm'>
           <label htmlFor='add-item' />

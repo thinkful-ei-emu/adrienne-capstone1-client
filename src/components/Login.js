@@ -36,12 +36,14 @@ export default class Login extends React.Component {
         this.handleLoginSuccess();
       })
       .catch(res => {
-        console.log(res);
-        this.setState({ error: res.error.message });
+        console.log(res.error);
+        this.setState({ error: res.error });
       })
   }
 
-
+  handleErrorClose = () => {
+    this.setState({ error: null });
+  }
 
   render() {
     const { error } = this.state;
@@ -52,7 +54,7 @@ export default class Login extends React.Component {
           <Link to='/register' className='navLink'>Create Account</Link>
         </nav>
         <div>
-          {error && <p className='error'>{error}</p>}
+        {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
         </div>
         <form className='loginForm' onSubmit={this.handleSubmitJwtAuth}>
           <div className='username'>

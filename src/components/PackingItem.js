@@ -117,7 +117,7 @@ export default class PackingItem extends React.Component {
         {(context) => (
           <>
             <div>
-              {error && <span role='alertdialog' className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
+              {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
              </div>
             {this.context.editing === this.props.id ? 
               this.renderEditView() : 
