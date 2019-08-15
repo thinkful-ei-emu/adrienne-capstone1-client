@@ -24,7 +24,6 @@ export default class Navigation extends React.Component {
   render() {
     return (
       <nav className='nav-bar'>
-        <h1>Travel Companion</h1>
         {TokenService.hasAuthToken() ? this.renderNavLinks() : null}
       </nav>
     )

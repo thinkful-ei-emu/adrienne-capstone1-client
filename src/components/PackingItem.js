@@ -3,9 +3,14 @@ import AppContext from './AppContext';
 import config from '../config';
 import TokenService from '../services/token_service';
 import '../css/packing.css';
+import PropTypes from 'prop-types';
 
 export default class PackingItem extends React.Component {
   static contextType = AppContext;
+
+  state = {
+    error: null
+  }
 
   handleDelete = event => {
     event.preventDefault();
@@ -40,10 +45,15 @@ export default class PackingItem extends React.Component {
 
   handleSave = event => {
     event.preventDefault();
+    
     const item = {
       id: this.props.id,
       item: event.target['edit-item'].value
     };
+
+    if(item.item === ' ') {
+      return this.setState({ error: 'Invalid input' });
+    }
 
     fetch(`${config.API_ENDPOINT}/list/${this.props.id}`, {
       method: 'PATCH',
@@ -70,7 +80,7 @@ export default class PackingItem extends React.Component {
       <form action='/packing-list' onSubmit={this.handleSave}>
         <input type='text' defaultValue={this.props.item} id='edit-item'  />
         <button type='submit'>Save</button>
-        <button onClick={this.handleEdit}>X</button>
+        <button onClick={this.handleEdit} aria-label='close'>X</button>
       </form>
     )
   }
@@ -96,11 +106,19 @@ export default class PackingItem extends React.Component {
    }
   }
 
+  handleErrorClose = () => {
+    this.setState({ error: null });
+  }
+
   render() {
+    const { error } = this.state;
     return(
       <AppContext.Consumer>
         {(context) => (
           <>
+            <div>
+              {error && <span role='alertdialog' className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
+             </div>
             {this.context.editing === this.props.id ? 
               this.renderEditView() : 
               this.renderDefaultView() }
@@ -109,4 +127,10 @@ export default class PackingItem extends React.Component {
       </AppContext.Consumer>
     )
   }
+}
+
+PackingItem.propTypes = {
+  id: PropTypes.number,
+  item: PropTypes.string,
+  hidden: PropTypes.bool
 }

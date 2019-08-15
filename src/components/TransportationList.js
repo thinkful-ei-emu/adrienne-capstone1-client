@@ -4,6 +4,7 @@ import TransportationItem from './TransportationItem';
 import config from '../config';
 import TokenService from '../services/token_service';
 import '../css/transportation.css';
+import PropTypes from 'prop-types';
 
 export default class TransportationList extends React.Component {
   static contextType = AppContext;
@@ -56,7 +57,6 @@ export default class TransportationList extends React.Component {
       document.getElementById('travelForm').reset();
     })
     .catch(res => {
-      console.log(res);
       this.setState({ error: res.error });
     })
   }
@@ -69,20 +69,20 @@ export default class TransportationList extends React.Component {
     return(
       <form action='/transportation' onSubmit={this.handleSubmit} className='addTravelForm' id='travelForm'>
         <div>
-          <label htmlFor='date'>Date: </label>
-          <input type='date' id='date' />
+          <label htmlFor='date' id='date-label'>Date: </label>
+          <input type='date' id='date' aria-labelledby='date-label' aria-required='true' required />
         </div>
         <div>
-          <label htmlFor='time'>Time: </label>
-          <input type='time' id='time' />
+          <label htmlFor='time' id='time-label'>Time: </label>
+          <input type='time' id='time' aria-labelledby='time-label' aria-required='true' required />
         </div>
         <div>
-          <label htmlFor='city-from'>From: </label>
-          <input type='text' id='city-from' />
+          <label htmlFor='city-from' id='from'>From: </label>
+          <input type='text' id='city-from' aria-labelledby='from' aria-required='true' required/>
         </div>
         <div>
-          <label htmlFor='city-to'>To: </label>
-          <input type='text' id='city-to' />
+          <label htmlFor='city-to' id='to'>To: </label>
+          <input type='text' id='city-to' aria-labelledby='to' aria-required='true' required/>
         </div>
         <div>
           <label htmlFor='transport-type'>Type of Transportation: </label>
@@ -95,8 +95,8 @@ export default class TransportationList extends React.Component {
           </select>
         </div>
         <div>
-        <label htmlFor='travel-number'>Transportation Number: </label>
-        <input type='text' id='travel-number' />
+        <label htmlFor='travel-number' id='trans_num'>Transportation Number: </label>
+        <input type='text' id='travel-number' aria-labelledby='trans_num' aria-required='true' required/>
         </div>
         <button type='submit'>Add Transportation</button>
         <button className='close-button' onClick={() => this.handleFormVisibility()}>Close</button>
@@ -110,6 +110,10 @@ export default class TransportationList extends React.Component {
     )
   }
 
+  handleErrorClose = () => {
+    this.setState({ error: null });
+  }
+
   render() {
     const { error } = this.state;
     const { transportationList } = this.context;
@@ -120,7 +124,7 @@ export default class TransportationList extends React.Component {
       <>
       <h2>Transportation</h2>
       <div>
-      {error && <p className='error'>{error}</p>}
+        {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
       </div>
       <>{this.state.isHidden ? this.renderButton() : this.renderForm()}</>
       <ul className='transportList'>
@@ -129,4 +133,8 @@ export default class TransportationList extends React.Component {
     </>
     )
   }
+}
+
+TransportationList.propTypes = {
+  history: PropTypes.object
 }

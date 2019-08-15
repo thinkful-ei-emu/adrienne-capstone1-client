@@ -9,7 +9,6 @@ import AppContext from './components/AppContext';
 import TransportationList from './components/TransportationList';
 import PrivateOnlyRoute from './components/Utils/PrivateOnlyRoute';
 import PublicOnlyRoute from './components/Utils/PublicOnlyRoute';
-import TokenService from './services/token_service';
 // ------ CSS
 import './App.css';
 
@@ -116,10 +115,11 @@ export default class App extends React.Component {
       <div className="App">
           <AppContext.Provider value={contextValue}>
             <header className="App-header">
+              <h1>Travel Companion</h1>
               <Route path='/' component={Navigation} />
             </header>
             <main className='App_main'>
-                {TokenService.hasAuthToken() ? <PrivateOnlyRoute exact path={'/'} component={PackingList} /> : <PublicOnlyRoute exact path={'/'} component={Login}/>}
+                <PublicOnlyRoute exact path={'/'} component={Login} />
                 <PublicOnlyRoute path={'/register'} component={Register} />
                 <PrivateOnlyRoute path={'/packing-list'} component={PackingList} />
                 <PrivateOnlyRoute path={'/transportation'} component={TransportationList} />

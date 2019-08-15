@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import AuthApiService from '../services/auth_service';
 import TokenService from '../services/token_service';
 import '../css/login.css';
+import PropTypes from 'prop-types';
 
 export default class Login extends React.Component {
   static defaultProps = {
@@ -35,9 +36,13 @@ export default class Login extends React.Component {
         this.handleLoginSuccess();
       })
       .catch(res => {
-        this.setState({ error: res.error });
+        console.log(res);
+        this.setState({ error: res.error.message });
       })
   }
+
+
+
   render() {
     const { error } = this.state;
     return (
@@ -63,4 +68,8 @@ export default class Login extends React.Component {
       </>
     )
   }
+}
+
+Login.propTypes = {
+  history: PropTypes.object
 }

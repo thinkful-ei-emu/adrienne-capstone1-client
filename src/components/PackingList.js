@@ -4,6 +4,7 @@ import PackingItem from './PackingItem';
 import config from '../config';
 import TokenService from '../services/token_service';
 import '../css/packing.css';
+import PropTypes from 'prop-types';
 
 export default class PackingList extends React.Component {
   static contextType = AppContext;
@@ -62,8 +63,8 @@ export default class PackingList extends React.Component {
   //   // console.log(item.hidden);
   // }
 
-  handleErrorVisibility = () => {
-    this.setState({ isHidden: true });
+  handleErrorClose = () => {
+    this.setState({ error: null });
   }
 
   render() {
@@ -78,7 +79,7 @@ export default class PackingList extends React.Component {
       <>
         <h2>Packing List</h2>
         <div>
-          {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorVisibility()}>X</button></span>}
+          {error && <span role='alertdialog' className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
         </div>
         <form action='/packing-list' onSubmit={this.handleSubmit} className='addItemForm' id='packingForm'>
           <label htmlFor='add-item' />
@@ -93,4 +94,8 @@ export default class PackingList extends React.Component {
       </>
     )
   }
+}
+
+PackingList.propTypes = {
+  history: PropTypes.object
 }

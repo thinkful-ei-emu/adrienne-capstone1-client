@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PrivateOnlyRoute from './PrivateOnlyRoute';
+import Register from '../components/Register';
 import {MemoryRouter} from 'react-router-dom';
 
-it.skip('renders without crashing', () => {
+it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<MemoryRouter><PrivateOnlyRoute /></MemoryRouter>, div);
+  ReactDOM.render(<MemoryRouter><Register /></MemoryRouter>, div);
   ReactDOM.unmountComponentAtNode(div);
 })

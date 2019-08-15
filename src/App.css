@@ -23,3 +23,26 @@ input {
 h1, h2 {
   font-size: 35px;
 }
+
+.error {
+  border: 1px solid red;
+  width: 90%;
+  margin: 0 auto;
+  color: red;
+  font-weight: 600;
+  padding: 5px 0;
+  margin-bottom: 10px;
+}
+
+.errorButton {
+  border: 1px solid red;
+  color: red;
+  font-weight: 600;
+  float: right;
+}
+
+@media only screen and (min-width: 700px) {
+  .error {
+    max-width: 550px;
+  }
+}

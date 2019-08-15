@@ -2,6 +2,7 @@ import React from 'react';
 import AuthApiService from '../services/auth_service';
 import {NavLink} from 'react-router-dom';
 import '../css/register.css';
+import PropTypes from 'prop-types';
  
 export default class Register extends React.Component {
   static defaultProps = {
@@ -62,4 +63,8 @@ export default class Register extends React.Component {
       </>
     )
   }
+}
+
+Register.propTypes = {
+  history: PropTypes.object
 }

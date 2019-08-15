@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TransportationItem from './TransportationItem';
+import Navigation from '../components/Navigation';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<TransportationItem />, div);
+  ReactDOM.render(<Navigation />, div);
   ReactDOM.unmountComponentAtNode(div);
 })
