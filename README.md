@@ -18,7 +18,7 @@ The Packing List shows an indivudual users packing list items and allows the use
 The Transportation page shows an indivudual users transportation information and allows the user to add, edit and delete items as needed.
 
 ## Technology Used
-Front-end: React, CSS, JavaScript
+Front-end: React, CSS, JavaScript  
 Back-end: Node, Express, PostgreSQL, testing with Mocha and Chai
 
 
