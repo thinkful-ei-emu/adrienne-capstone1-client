@@ -1,5 +1,5 @@
 #Travel Companion
-Live App Link: 
+Live App Link: https://travel-companion.agsmith046.now.sh/
 
 ##Summary
 Travel Companion users can create an account to keep track of items in their packing list and their transportation information. The user can edit and delete items from the packing list and the transportation information as needed. When the user is no longer in need of any of the information that was added, the items can be deleted. 
