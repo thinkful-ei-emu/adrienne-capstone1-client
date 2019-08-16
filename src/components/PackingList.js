@@ -58,11 +58,6 @@ export default class PackingList extends React.Component {
     })
   }
 
-  // handleMakeAllVisible = () => {
-  //   // console.log('this works');
-  //   // console.log(item.hidden);
-  // }
-
   handleErrorClose = () => {
     this.setState({ error: null });
   }

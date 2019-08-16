@@ -1,16 +1,16 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 // ------ Components
-import PackingList from './components/PackingList';
-import Navigation from './components/Navigation';
-import Login from './components/Login';
-import Register from './components/Register';
-import AppContext from './components/AppContext';
-import TransportationList from './components/TransportationList';
-import PrivateOnlyRoute from './components/Utils/PrivateOnlyRoute';
-import PublicOnlyRoute from './components/Utils/PublicOnlyRoute';
+import PackingList from './PackingList';
+import Navigation from './Navigation';
+import Login from './Login';
+import Register from './Register';
+import AppContext from './AppContext';
+import TransportationList from './TransportationList';
+import PrivateOnlyRoute from './Utils/PrivateOnlyRoute';
+import PublicOnlyRoute from './Utils/PublicOnlyRoute';
 // ------ CSS
-import './App.css';
+import '../css/App.css';
 
 
 export default class App extends React.Component {

@@ -36,7 +36,6 @@ export default class Login extends React.Component {
         this.handleLoginSuccess();
       })
       .catch(res => {
-        console.log(res.error);
         this.setState({ error: res.error });
       })
   }
@@ -50,6 +49,10 @@ export default class Login extends React.Component {
     return (
       <>
         <h2>Welcome Traveler!</h2>
+        <p className='description'>
+          Travel Companion helps you keep travel information organized. Keep track of everything you need to bring with you and how you are getting there. <br />
+          Begin by clicking the link below to create an account.
+        </p>
         <nav className='login-nav'>
           <Link to='/register' className='navLink'>Create Account</Link>
         </nav>
@@ -60,10 +63,12 @@ export default class Login extends React.Component {
           <div className='username'>
             <label htmlFor='username'>Username: </label>
             <input type='text' id='username' aria-label='Username' aria-required='true' required />
+            <p className='demo'>Demo username: admin</p>
           </div>
           <div className='password'>
             <label htmlFor='password'>Password: </label>
             <input type='password' id='password' aria-label='Password' aria-required='true' required />
+            <p className='demo'>Demo password: Test12!!</p>
           </div>
           <button type='submit'>Login</button>
         </form>

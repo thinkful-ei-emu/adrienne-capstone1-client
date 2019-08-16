@@ -8,3 +8,8 @@ div {
   font-size: 17px;
   margin-right: 10px;
 }
+
+.logoutLink:hover, .navLink:hover {
+  color: #6b3126;
+  text-decoration: underline;
+}

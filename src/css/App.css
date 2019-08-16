@@ -4,6 +4,7 @@
 
 h1, h2 {
   text-align: center;
+  font-size: 35px;
 }
 
 body {
@@ -18,10 +19,6 @@ button {
 
 input {
   text-align: left;
-}
-
-h1, h2 {
-  font-size: 35px;
 }
 
 .error {

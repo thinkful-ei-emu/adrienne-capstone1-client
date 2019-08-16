@@ -21,7 +21,6 @@ export default class Register extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     this.setState({ error: null });
-    // right now ignoring confirm password, will look into later
     const { username, password } = event.target;
     AuthApiService.postUser({
       username: username.value,
@@ -60,8 +59,6 @@ export default class Register extends React.Component {
             <label htmlFor='password'>Password: </label>
             <input type='password' id='password' aria-label='Password' aria-required='true' required/>
           </div>
-            {/* <label htmlFor='confirm-pass'>Confirm Password:</label> */}
-            {/* <input type='password' id='confirm-pass' /> */}
           <button type='submit'>Create Account</button>
         </form>
       </>
