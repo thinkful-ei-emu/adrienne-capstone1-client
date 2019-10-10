@@ -5,6 +5,9 @@ import TokenService from '../services/token_service';
 import '../css/transportation.css';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 export default class TransportationItem extends React.Component {
   static contextType = AppContext;
@@ -25,10 +28,10 @@ export default class TransportationItem extends React.Component {
       transport_number: this.props.number
     };
     fetch(`${config.API_ENDPOINT}/travel/${item.id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: { 
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-        'content-type': 'application/json' 
+        "Authorization": `bearer ${TokenService.getAuthToken()}`,
+        "content-type": "application/json" 
       }
     })
     .then(res => {
@@ -70,10 +73,10 @@ export default class TransportationItem extends React.Component {
     }
 
     fetch(`${config.API_ENDPOINT}/travel/${this.props.id}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: { 
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-        'content-type': 'application/json' 
+        "Authorization": `bearer ${TokenService.getAuthToken()}`,
+        "content-type": "application/json" 
       },
       body: JSON.stringify(item)
     })
@@ -91,39 +94,39 @@ export default class TransportationItem extends React.Component {
 
   renderEditView = () => {
     return (
-      <form action='/transportation' className='edit-form' onSubmit={this.handleSave}>
+      <form action="/transportation" className="edit-transport-form" onSubmit={this.handleSave}>
         <div>
-          <label htmlFor='edit-date' />
-          <input type='date' defaultValue={this.props.transport_date} id='edit-date' aria-label='Date' />
+          <label htmlFor="edit-date" />
+          <input type="date" defaultValue={this.props.transport_date} id="edit-date" aria-label="Date" />
         </div>
         <div>
-          <label htmlFor='edit-time' />
-          <input type='time' defaultValue={this.props.transport_time} id='edit-time' aria-label='Time' />
+          <label htmlFor="edit-time" />
+          <input type="time" defaultValue={this.props.transport_time} id="edit-time" aria-label="Time" />
         </div>
         <div>
-          <label htmlFor='edit-location' />
-          <input type='text' defaultValue={this.props.transport_location} id='edit-location' aria-label='From' />
+          <label htmlFor="edit-location" />
+          <input type="text" defaultValue={this.props.transport_location} id="edit-location" aria-label="From" />
         </div>
         <div>
-          <label htmlFor='edit-destination' />
-          <input type='text' defaultValue={this.props.destination} id='edit-destination' aria-label='To' />
+          <label htmlFor="edit-destination" />
+          <input type="text" defaultValue={this.props.destination} id="edit-destination" aria-label="To" />
         </div>
         <div>
-          <label htmlFor='edit-type' />
-          <select id='edit-type' name='select' aria-label='Transportation Type'>
-            <option value='Plane'>Plane</option>
-            <option value='Train'>Train</option>
-            <option value='Bus'>Bus</option>
-            <option value='Car'>Car</option>
-            <option value='Boat'>Boat</option>
+          <label htmlFor="edit-type" />
+          <select id="edit-type" name="select" aria-label="Transportation Type">
+            <option value="Plane">Plane</option>
+            <option value="Train">Train</option>
+            <option value="Bus">Bus</option>
+            <option value="Car">Car</option>
+            <option value="Boat">Boat</option>
           </select>
         </div>
         <div>
-          <label htmlFor='edit-transport-number' />
-          <input type='text' defaultValue={this.props.transport_number} id='edit-transport-number' aria-label='Transportation Number' />
+          <label htmlFor="edit-transport-number" />
+          <input type="text" defaultValue={this.props.transport_number} id="edit-transport-number" aria-label="Transportation Number" />
         </div>
-        <button type='submit'>Save</button>
-        <button onClick={this.handleEdit} aria-label='close'>X</button>
+        <button className="save-button" type="submit">Save</button>
+        <button className="close-button" onClick={this.handleEdit} aria-label="close">X</button>
       </form>
     )
   }
@@ -137,8 +140,14 @@ export default class TransportationItem extends React.Component {
         <p>Destination: {this.props.destination}</p>
         <p>Type: {this.props.transport_type}</p>
         <p>Number: {this.props.transport_number}</p>
-        <button onClick={() => this.handleEdit(this.props.id)}>Edit</button>
-        <button onClick={this.handleDelete}>Delete</button>
+        <button className="edit-button" onClick={() => this.handleEdit(this.props.id)}>
+          <FontAwesomeIcon icon={faEdit} className="button-icon" />
+          Edit
+        </button>
+        <button className="delete-button" onClick={this.handleDelete}>
+          <FontAwesomeIcon icon={faTrashAlt} className="button-icon" />
+          Delete
+        </button>
       </>
     )
   }
@@ -153,8 +162,8 @@ export default class TransportationItem extends React.Component {
       <AppContext.Consumer>
         {(context) => (
           <>
-          {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
-          <li className='transportation-item'>
+          {error && <span className="error">{error}<button className="error-button" onClick={() => this.handleErrorClose()} aria-label="close">X</button></span>}
+          <li className="transportation-item">
             {this.context.editing === this.props.id ? 
               this.renderEditView() : 
               this.renderDefaultView() }

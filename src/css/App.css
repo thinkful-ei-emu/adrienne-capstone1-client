@@ -2,23 +2,32 @@
   box-sizing: border-box;
 }
 
-h1, h2 {
+h1 {
+  font-family: 'Nova Round', cursive;
   text-align: center;
-  font-size: 35px;
+  font-size: 28px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 30px;
 }
 
 body {
   font-size: 20px;
+  background-color: #F3F3F3;
 }
 
 button {
   font-size: 15px;
   border: 1px solid #808586;
   border-radius: 4px;
+  margin: 5px 5px;
 }
 
 input {
   text-align: left;
+  height: 25px;
 }
 
 .error {
@@ -29,17 +38,45 @@ input {
   font-weight: 600;
   padding: 5px 0;
   margin-bottom: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 
-.errorButton {
+.error-button {
   border: 1px solid red;
   color: red;
   font-weight: 600;
   float: right;
 }
 
+.add-button {
+  background-color: #D2E4C4;
+}
+
+.edit-button, .save-button {
+  background-color: #D5E8E4;
+}
+
+.delete-button, .close-button {
+  background-color: #E2D5DC;
+}
+
+.nav-logo {
+  height: 28px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
 @media only screen and (min-width: 700px) {
   .error {
     max-width: 550px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  .nav-logo {
+    height: 40px;
   }
 }

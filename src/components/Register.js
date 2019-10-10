@@ -44,22 +44,22 @@ export default class Register extends React.Component {
     const { error } = this.state;
     return (
       <>
-        <nav className='register-nav'>
-          <NavLink to='/' className='navLink'>Existing Users</NavLink>
+        <nav className="register-nav">
+          <NavLink to="/" className="nav-link">Existing Users</NavLink>
         </nav>
         <div>
-        {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
+        {error && <span className="error">{error}<button className="error-button" onClick={() => this.handleErrorClose()} aria-label="close">X</button></span>}
         </div>
-        <form className='registerForm' onSubmit={this.handleSubmit}>
-          <div className='username'>
-            <label htmlFor='username'>Username: </label>
-            <input type='text' id='username' aria-label='Username' aria-required='true' required/>
+        <form className="register-form" onSubmit={this.handleSubmit}>
+          <div className="username">
+            <label htmlFor="username">Username: </label>
+            <input type="text" id="username" aria-label="Username" aria-required="true" required/>
           </div>
-          <div className='password'>
-            <label htmlFor='password'>Password: </label>
-            <input type='password' id='password' aria-label='Password' aria-required='true' required/>
+          <div className="password">
+            <label htmlFor="password">Password: </label>
+            <input type="password" id="password" aria-label="Password" aria-required="true" required/>
           </div>
-          <button type='submit'>Create Account</button>
+          <button className="register-button" type="submit">Create Account</button>
         </form>
       </>
     )

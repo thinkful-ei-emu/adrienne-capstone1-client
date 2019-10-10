@@ -1,4 +1,4 @@
-.registerForm {
+.register-form {
   text-align: center;
   max-width: 90%;
   margin: 0 auto;
@@ -13,6 +13,10 @@ input {
 
 #password {
   margin-left: 4.3px;
+}
+
+.register-button {
+  background-color: #D2E4C4;
 }
 
 @media only screen and (min-width: 700px) {

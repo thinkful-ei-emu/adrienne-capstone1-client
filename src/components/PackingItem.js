@@ -4,6 +4,9 @@ import config from '../config';
 import TokenService from '../services/token_service';
 import '../css/packing.css';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 export default class PackingItem extends React.Component {
   static contextType = AppContext;
@@ -19,10 +22,10 @@ export default class PackingItem extends React.Component {
       item: this.props.name
     };
     fetch(`${config.API_ENDPOINT}/list/${item.id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: { 
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-        'content-type': 'application/json' 
+        "Authorization": `bearer ${TokenService.getAuthToken()}`,
+        "content-type": "application/json" 
       }
     })
     .then(res => {
@@ -48,7 +51,7 @@ export default class PackingItem extends React.Component {
     
     const item = {
       id: this.props.id,
-      item: event.target['edit-item'].value
+      item: event.target["edit-item"].value
     };
 
     if(item.item === ' ') {
@@ -56,10 +59,10 @@ export default class PackingItem extends React.Component {
     }
 
     fetch(`${config.API_ENDPOINT}/list/${this.props.id}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: { 
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-        'content-type': 'application/json' 
+        "Authorization": `bearer ${TokenService.getAuthToken()}`,
+        "content-type": "application/json" 
       },
       body: JSON.stringify(item)
     })
@@ -77,10 +80,10 @@ export default class PackingItem extends React.Component {
   
   renderEditView = () => {
     return (
-      <form action='/packing-list' onSubmit={this.handleSave}>
-        <input type='text' defaultValue={this.props.item} id='edit-item'  />
-        <button type='submit'>Save</button>
-        <button onClick={this.handleEdit} aria-label='close'>X</button>
+      <form className="edit-form" action="/packing-list" onSubmit={this.handleSave}>
+        <input type="text" defaultValue={this.props.item} id="edit-item"  />
+        <button className="save-button" type="submit">Save</button>
+        <button className="close-button" onClick={this.handleEdit} aria-label="close">X</button>
       </form>
     )
   }
@@ -96,11 +99,17 @@ export default class PackingItem extends React.Component {
       return null
     } else {
       return (
-        <li className='item'>
-          <input type="checkbox" onKeyDown={(e) => this.handleCheckboxAccessibility(e)} onChange={() => this.handleToggle(this.props.id)} />
-          <span>{this.props.item}</span>
-          <button onClick={() => this.handleEdit(this.props.id)}>Edit</button>
-          <button onClick={this.handleDelete}>Delete</button>
+        <li className="item">
+          <input className="hide-item" type="checkbox" onKeyDown={(e) => this.handleCheckboxAccessibility(e)} onChange={() => this.handleToggle(this.props.id)} />
+          <span className="packing-item">{this.props.item}</span>
+          <button className="edit-button" onClick={() => this.handleEdit(this.props.id)}>
+            <FontAwesomeIcon icon={faEdit} className="button-icon" />
+            Edit
+          </button>
+          <button className="delete-button" onClick={this.handleDelete}>
+            <FontAwesomeIcon icon={faTrashAlt} className="button-icon" />
+            Delete
+          </button>
         </li>
       )
    }
@@ -117,7 +126,7 @@ export default class PackingItem extends React.Component {
         {(context) => (
           <>
             <div>
-              {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
+              {error && <span className="error">{error}<button className="error-button" onClick={() => this.handleErrorClose()} aria-label="close">X</button></span>}
              </div>
             {this.context.editing === this.props.id ? 
               this.renderEditView() : 

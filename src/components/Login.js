@@ -49,29 +49,31 @@ export default class Login extends React.Component {
     return (
       <>
         <h2>Welcome Traveler!</h2>
-        <p className='description'>
+        <p className="description">
           Travel Companion helps you keep travel information organized. Keep track of everything you need to bring with you and how you are getting there. <br />
           Begin by clicking the link below to create an account.
         </p>
-        <nav className='login-nav'>
-          <Link to='/register' className='navLink'>Create Account</Link>
+        <nav className="login-nav">
+          <Link to="/register" className="nav-link">Create Account</Link>
         </nav>
         <div>
-        {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
+        {error && <span className="error">{error}<button className="error-button" onClick={() => this.handleErrorClose()} aria-label="close">X</button></span>}
         </div>
-        <form className='loginForm' onSubmit={this.handleSubmitJwtAuth}>
-          <div className='username'>
-            <label htmlFor='username'>Username: </label>
-            <input type='text' id='username' aria-label='Username' aria-required='true' required />
-            <p className='demo'>Demo username: admin</p>
+        <form className="login-form" onSubmit={this.handleSubmitJwtAuth}>
+          <div className="username">
+            <label htmlFor="username">Username: </label>
+            <input type="text" id="username" aria-label="Username" aria-required="true" required />
           </div>
-          <div className='password'>
-            <label htmlFor='password'>Password: </label>
-            <input type='password' id='password' aria-label='Password' aria-required='true' required />
-            <p className='demo'>Demo password: Test12!!</p>
+          <div className="password">
+            <label htmlFor="password">Password: </label>
+            <input type="password" id="password" aria-label="Password" aria-required="true" required />
           </div>
-          <button type='submit'>Login</button>
+          <button className="login-button" type="submit">Login</button>
         </form>
+        <div className="demo">
+          <p>Demo username: admin</p>
+          <p>Demo password: Test12!!</p>
+        </div>
       </>
     )
   }

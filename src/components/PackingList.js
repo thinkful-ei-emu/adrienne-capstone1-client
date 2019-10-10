@@ -17,7 +17,7 @@ export default class PackingList extends React.Component {
   componentDidMount() {
     fetch(`${config.API_ENDPOINT}/list`, {
       headers: {
-        'Authorization': `bearer ${TokenService.getAuthToken()}`
+        "Authorization": `bearer ${TokenService.getAuthToken()}`
       }
     })
     .then(res =>
@@ -36,10 +36,10 @@ export default class PackingList extends React.Component {
       item: event.target['add-item'].value
     };
     fetch(`${config.API_ENDPOINT}/list`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-        'content-type': 'application/json'
+        "Authorization": `bearer ${TokenService.getAuthToken()}`,
+        "content-type": "application/json"
       },
       body: JSON.stringify(item)
     })
@@ -74,16 +74,16 @@ export default class PackingList extends React.Component {
       <>
         <h2>Packing List</h2>
         <div>
-          {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
+          {error && <span className="error">{error}<button className="error-button" onClick={() => this.handleErrorClose()} aria-label="close">X</button></span>}
         </div>
-        <form action='/packing-list' onSubmit={this.handleSubmit} className='addItemForm' id='packingForm'>
-          <label htmlFor='add-item' />
-          <input type='text' id='add-item' placeholder='e.g. Phone Charger' aria-label='Packing List Item' aria-required='true' required />
-          <button type='submit'>Add Item</button>
+        <form action="/packing-list" onSubmit={this.handleSubmit} className="addItemForm" id="packingForm">
+          <label htmlFor="add-item" />
+          <input type="text" id="add-item" placeholder="e.g. Phone Charger" aria-label="Packing List Item" aria-required="true" required />
+          <button className="add-button" type="submit">Add Item</button>
         </form>
-        <ul className='packingList'>
-          {/* <input type='checkbox' id='show-all' onClick={this.handleMakeAllVisible()} />
-          <label htmlFor='show-all'>Show Completed</label> */}
+        <ul className="packing-list">
+          {/* <input type="checkbox" id="show-all" onClick={this.handleMakeAllVisible()} />
+          <label htmlFor="show-all">Show Completed</label> */}
           {listItems}
         </ul>
       </>

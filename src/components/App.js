@@ -9,6 +9,7 @@ import AppContext from './AppContext';
 import TransportationList from './TransportationList';
 import PrivateOnlyRoute from './Utils/PrivateOnlyRoute';
 import PublicOnlyRoute from './Utils/PublicOnlyRoute';
+import Logo from './logo.png';
 // ------ CSS
 import '../css/App.css';
 
@@ -115,10 +116,13 @@ export default class App extends React.Component {
       <div className="App">
           <AppContext.Provider value={contextValue}>
             <header className="App-header">
-              <h1>Travel Companion</h1>
+              <h1>
+                <img className='nav-logo' src={Logo} alt="Travel Companion Logo" />
+                Travel Companion
+              </h1>
               <Route path='/' component={Navigation} />
             </header>
-            <main className='App_main'>
+            <main className="App_main">
                 <PublicOnlyRoute exact path={'/'} component={Login} />
                 <PublicOnlyRoute path={'/register'} component={Register} />
                 <PrivateOnlyRoute path={'/packing-list'} component={PackingList} />

@@ -16,7 +16,7 @@ export default class TransportationList extends React.Component {
 
   componentDidMount() {
     fetch(`${config.API_ENDPOINT}/travel`, {
-      headers: { 'Authorization': `bearer ${TokenService.getAuthToken()}` }
+      headers: { "Authorization": `bearer ${TokenService.getAuthToken()}` }
     })
     .then(res =>
       (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
@@ -39,10 +39,10 @@ export default class TransportationList extends React.Component {
       transport_number: event.target['travel-number'].value
     };
     fetch(`${config.API_ENDPOINT}/travel`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-        'content-type': 'application/json'
+        "Authorization": `bearer ${TokenService.getAuthToken()}`,
+        "content-type": "application/json"
       },
       body: JSON.stringify(item)
     })
@@ -67,46 +67,46 @@ export default class TransportationList extends React.Component {
 
   renderForm = () => {
     return(
-      <form action='/transportation' onSubmit={this.handleSubmit} className='addTravelForm' id='travelForm'>
+      <form action="/transportation" onSubmit={this.handleSubmit} className="add-travel-form" id="travelForm">
         <div>
-          <label htmlFor='date' id='date-label'>Date: </label>
-          <input type='date' id='date' aria-labelledby='date-label' aria-required='true' required />
+          <label htmlFor="date" id="date-label">Date: </label>
+          <input type="date" id="date" aria-labelledby="date-label" aria-required="true" required />
         </div>
         <div>
-          <label htmlFor='time' id='time-label'>Time: </label>
-          <input type='time' id='time' aria-labelledby='time-label' aria-required='true' required />
+          <label htmlFor="time" id="time-label">Time: </label>
+          <input type="time" id="time" aria-labelledby="time-label" aria-required="true" required />
         </div>
         <div>
-          <label htmlFor='city-from' id='from'>From: </label>
-          <input type='text' id='city-from' aria-labelledby='from' aria-required='true' required/>
+          <label htmlFor="city-from" id="from">From: </label>
+          <input type="text" id="city-from" aria-labelledby="from" aria-required="true" required/>
         </div>
         <div>
-          <label htmlFor='city-to' id='to'>To: </label>
-          <input type='text' id='city-to' aria-labelledby='to' aria-required='true' required/>
+          <label htmlFor="city-to" id="to">To: </label>
+          <input type="text" id="city-to" aria-labelledby="to" aria-required="true" required/>
         </div>
         <div>
-          <label htmlFor='transport-type'>Type of Transportation: </label>
-          <select id='transport-type' name='select'>
-            <option value='Plane'>Plane</option>
-            <option value='Train'>Train</option>
-            <option value='Bus'>Bus</option>
-            <option value='Car'>Car</option>
-            <option value='Boat'>Boat</option>
+          <label htmlFor="transport-type">Type of Transportation: </label>
+          <select id="transport-type" name="select">
+            <option value="Plane">Plane</option>
+            <option value="Train">Train</option>
+            <option value="Bus">Bus</option>
+            <option value="Car">Car</option>
+            <option value="Boat">Boat</option>
           </select>
         </div>
         <div>
-        <label htmlFor='travel-number' id='trans_num'>Transportation Number: </label>
-        <input type='text' id='travel-number' aria-labelledby='trans_num' aria-required='true' required/>
+        <label htmlFor="travel-number" id="trans_num">Transportation Number: </label>
+        <input type="text" id="travel-number" aria-labelledby="trans_num" aria-required="true" required/>
         </div>
-        <button type='submit'>Add Transportation</button>
-        <button className='close-button' onClick={() => this.handleFormVisibility()}>Close</button>
+        <button className="add-button" type="submit">Add Transportation</button>
+        <button className="close-button" onClick={() => this.handleFormVisibility()}>Close</button>
       </form>
     )
   }
 
   renderButton = () => {
     return (
-      <button onClick={() => this.handleFormVisibility()}>New Transportation</button>
+      <button className="new-transportation" onClick={() => this.handleFormVisibility()}>New Transportation</button>
     )
   }
 
@@ -124,10 +124,10 @@ export default class TransportationList extends React.Component {
       <>
       <h2>Transportation</h2>
       <div>
-        {error && <span className='error'>{error}<button className='errorButton' onClick={() => this.handleErrorClose()} aria-label='close'>X</button></span>}
+        {error && <span className="error">{error}<button className="error-button" onClick={() => this.handleErrorClose()} aria-label="close">X</button></span>}
       </div>
       <>{this.state.isHidden ? this.renderButton() : this.renderForm()}</>
-      <ul className='transportList'>
+      <ul className="transportList">
         {listItems}
       </ul>
     </>

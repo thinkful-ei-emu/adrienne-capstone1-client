@@ -1,10 +1,11 @@
-.addTravelForm {
+.add-travel-form {
   border: 1px solid black;
   border-radius: 5px;
   text-align: center;
   max-width: 90%;
   margin: 0 auto;
   line-height: 1.7;
+  margin-bottom: 20px;
 }
 
 li {
@@ -26,14 +27,14 @@ ul {
   padding: 0;
 }
 
-button {
-  margin: 5px 5px;
-  background-color: white;
-}
-
 input {
   margin-right: 5px;
   text-align: center;
+}
+
+.new-transportation {
+  margin-bottom: 15px;
+  background-color: #D2E4C4;
 }
 
 @media only screen and (min-width: 700px) {
@@ -41,7 +42,7 @@ input {
     max-width: 550px;
   }
 
-  .addTravelForm {
+  .add-travel-form {
     max-width: 50%;
   }
 }

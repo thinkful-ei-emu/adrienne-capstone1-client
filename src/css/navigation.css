@@ -2,14 +2,15 @@ div {
   text-align: center;
 }
 
-.logoutLink, .navLink {
+.logout-link, .nav-link {
   color: rgb(78, 76, 76);
   text-decoration: none;
   font-size: 17px;
   margin-right: 10px;
 }
 
-.logoutLink:hover, .navLink:hover {
-  color: #6b3126;
+.logout-link:hover, .nav-link:hover {
+  /* color: #6b3126; */
+  color: #8DA1B9;
   text-decoration: underline;
 }

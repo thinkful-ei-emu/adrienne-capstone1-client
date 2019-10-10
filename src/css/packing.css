@@ -1,32 +1,54 @@
-li {
+.item, .edit-form {
   list-style: none;
   border: 1px solid black;
   border-radius: 5px;
   margin-top: 10px;
 }
 
-span {
-  display: inline-block;
+.packing-item {
+  display: block;
   margin-left: 15px;
   margin-right: 10px;
 }
 
-ul {
+.packing-list { 
   width: 90%;
   margin: 0 auto;
   padding: 0;
 }
 
-button {
-  background-color: white;
+.add-button {
+  background-color: #D2E4C4;
 }
 
-input[type='checkbox'] {
+.edit-button, .save-button {
+  background-color: #D5E8E4;
+}
+
+.delete-button, .close-button {
+  background-color: #E2D5DC;
+}
+
+.hide-item {
   width: 14px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.edit-form {
+  padding: 5px 0;
+}
+
+.button-icon {
+  margin-right: 2px;
 }
 
 @media only screen and (min-width: 700px) {
-  ul {
+  .packing-list {
     max-width: 550px;
+  }
+
+  .packing-item {
+    display: inline-block;
   }
 }

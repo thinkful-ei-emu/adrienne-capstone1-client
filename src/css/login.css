@@ -1,4 +1,4 @@
-.loginForm {
+.login-form {
   text-align: center;
   max-width: 90%;
   margin: 0 auto;
@@ -6,6 +6,7 @@
   margin-top: 10px;
 }
 
+/* give classNames to inputs maybe? */
 input {
   text-align: left;
   width: 60%;
@@ -25,9 +26,17 @@ input {
 
 .demo {
   font-size: 16px;
-  margin: 0;
-  text-align: left;
+  margin: 0 auto;
+  text-align: center;
   padding-left: 10px;
+  border: 1px solid black;
+  width: 90%;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.login-button {
+  background-color: #D2E4C4;
 }
 
 @media only screen and (min-width: 700px) {
@@ -35,11 +44,12 @@ input {
     max-width: 270px;
   }
 
-  .loginForm {
+  .login-form {
     max-width: 500px;
   }
 
   .demo {
-    padding-left: 60px;
+    /* padding-left: 60px; */
+    max-width: 300px;
   }
 }
